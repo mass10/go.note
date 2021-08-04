@@ -9,8 +9,19 @@ import (
 	"net/http"
 )
 
+// HTTP 静的ファイルサーバーを起動します。
+//
+// @param location 位置
+// @param port ポート番号
 func serve(location string, port int) {
 	
+	fileInfo, err := os.Stat(location)
+	if err != nil {
+		log.Fatal(err)
+	}
+	if !fileInfo.IsDir() {
+		log.Fatal(location, " is not a directory")
+	}
 	http.Handle("/", http.StripPrefix("/", http.FileServer(http.Dir(location))))
 	portText := fmt.Sprintf(":%d", port)
 	log.Fatal(http.ListenAndServe(portText, nil))
