@@ -22,6 +22,7 @@ func serve(location string, port int) {
 	if !fileInfo.IsDir() {
 		log.Fatal(location, " is not a directory")
 	}
+	log.Println("Serving ", location, " on port ", port, " ...")
 	http.Handle("/", http.StripPrefix("/", http.FileServer(http.Dir(location))))
 	portText := fmt.Sprintf(":%d", port)
 	log.Fatal(http.ListenAndServe(portText, nil))
