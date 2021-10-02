@@ -7,14 +7,17 @@ import (
 	"time"
 )
 
+/// Jimi Hendrix 構造体
 type JimiHendrix struct {
 	Stratocaster string
 }
 
+/// Jimy Page 構造体
 type JimmyPage struct {
 	LesPaul string
 }
 
+/// タイミングによって異なる実体を生成します。
 func generateRandomStructure() interface{} {
 	n := rand.Intn(256)
 	if 210 <= n {
@@ -26,6 +29,7 @@ func generateRandomStructure() interface{} {
 	return nil
 }
 
+/// 呼び出しフレームを取得します。
 func getCallerName() string {
 
 	pc, _, _, ok := runtime.Caller(1)
@@ -42,6 +46,7 @@ func getCallerName() string {
 }
 
 func main() {
+	// シード値を初期化
 	rand.Seed(time.Now().UnixNano())
 
 	frame := getCallerName()
@@ -53,7 +58,8 @@ func main() {
 			break
 		}
 
-		switch message := generateRandomStructure().(type) {
+		// 不明な構造体インスタンスを振りわけ
+		switch message := generateRandomStructure().(type) { // nil safe
 		case nil:
 			fmt.Printf("[WARN] Type: [%v], Message: []\n", message)
 		case JimiHendrix:
