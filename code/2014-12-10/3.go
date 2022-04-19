@@ -1,23 +1,23 @@
 //
-// #DWGO 2014-12-10 at KABUKIZA TOWER
+// 2014-12-10 at KABUKIZA TOWER
 //
 // SPECIAL THANKS TO:
 //	- yukkurisinai (https://github.com/yukkurisinai)
-//	- all the others in #DWGO
+//	- all the participants
 //
 
 package main
- 
+
 import (
-  "io"
-  // "io/ioutil"
-  "net/http"
-  "os"
-  "sync"
-  "strings"
-  // "log"
+	"io"
+	// "io/ioutil"
+	"net/http"
+	"os"
+	"strings"
+	"sync"
+	// "log"
 )
- 
+
 func download(url string, saveFileName string) {
 	saveFile, _ := os.Create(saveFileName)
 	defer saveFile.Close()
@@ -25,7 +25,7 @@ func download(url string, saveFileName string) {
 	defer response.Body.Close()
 	io.Copy(saveFile, response.Body)
 }
- 
+
 func main() {
 	var waitGroup sync.WaitGroup
 	for i, path := range os.Args[1:] {
