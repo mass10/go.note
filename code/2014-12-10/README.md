@@ -1,3 +1,3 @@
-2014-12-10 #dwgo in KABUKIZA TOWER
+2014-12-10
 
 ハンズオンの記録
