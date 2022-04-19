@@ -1,9 +1,9 @@
 //
-// #DWGO 2014-12-10 at KABUKIZA TOWER
+// 2014-12-10 at KABUKIZA TOWER
 //
 // SPECIAL THANKS TO:
 //	- yukkurisinai (https://github.com/yukkurisinai)
-//	- all the others in #DWGO
+//	- all the participants
 //
 
 package main
@@ -14,7 +14,7 @@ import (
 	"net/http"
 	"os"
 )
- 
+
 func download(url string, saveFileName string) (err error) {
 	saveFile, err := os.Create(saveFileName)
 	if err != nil {
@@ -26,14 +26,14 @@ func download(url string, saveFileName string) (err error) {
 		return
 	}
 	defer response.Body.Close()
- 
+
 	_, err = io.Copy(saveFile, response.Body)
 	if err != nil {
 		return
 	}
 	return
 }
- 
+
 func main() {
 	url := "http://yukkurisinai.net/gopher.png"
 	err := download(url, "gopher.png")
