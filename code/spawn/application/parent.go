@@ -10,14 +10,9 @@ import (
 // 親としての通常の操作
 func (self *applicationCore) runForParentMain() {
 
-	log.Println("[DEBUG] (applicationCore.runForParentMain) クライアントモードとしてプロセスを起動しています...")
 	command := exec.Command("go.exe", "run", "main.go", "--fork")
 
-	// var buffer bytes.Buffer
-	// command.Stdout = &buffer
-
 	// プロセスの標準入力
-	log.Println("[DEBUG] (applicationCore.runForParentMain) プロセスの標準入力")
 	requestIf, err := command.StdinPipe()
 	if err != nil {
 		log.Fatal(err)
@@ -26,7 +21,6 @@ func (self *applicationCore) runForParentMain() {
 	requestToChild := bufio.NewWriter(requestIf)
 
 	// 子プロセスからの出力を読み込む
-	log.Println("[DEBUG] (applicationCore.runForParentMain) 子プロセスからの出力を読み込む")
 	responseIf, err := command.StdoutPipe()
 	if err != nil {
 		log.Fatal(err)
@@ -56,9 +50,9 @@ func (self *applicationCore) runForParentMain() {
 			break
 		}
 
-		// requestString := "[MSG]Hello"
+		requestString := "[MSG]Hello"
 
-		log.Printf("親 > [MSG]Hello > 子")
+		log.Printf("親 > %s > 子", requestString)
 
 		// >> 子プロセスへの要求 >>
 		requestToChild.WriteString("[MSG]Hello\n")
@@ -70,7 +64,7 @@ func (self *applicationCore) runForParentMain() {
 			if !strings.HasPrefix(line, "[RPLY]") {
 				continue
 			}
-			log.Printf("子 > [%s] > 親\n", line)
+			log.Printf("子 > %s > 親\n", line)
 			break
 		}
 
